@@ -18,10 +18,11 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
-            overflow: hidden;
             height: 100vh;
             color: #2d3748;
             line-height: 1.6;
+            position: relative;
+            overflow: hidden;
         }
         
         @keyframes gradientShift {
@@ -32,7 +33,7 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* Navigation Arrows - Enhanced */
+        /* Navigation Arrows */
         .nav-arrow {
             position: fixed;
             top: 50%;
@@ -64,13 +65,8 @@
             border-color: rgba(255, 255, 255, 0.5);
         }
         
-        .nav-arrow.prev {
-            left: 30px;
-        }
-        
-        .nav-arrow.next {
-            right: 30px;
-        }
+        .nav-arrow.prev { left: 30px; }
+        .nav-arrow.next { right: 30px; }
         
         .nav-arrow.disabled {
             opacity: 0.3;
@@ -78,7 +74,7 @@
             pointer-events: none;
         }
         
-        /* Page indicator - Redesigned */
+        /* Page indicator */
         .page-indicator {
             position: fixed;
             bottom: 30px;
@@ -134,47 +130,54 @@
             100% { transform: scale(1.5); opacity: 0; }
         }
         
-        /* Main Container */
+        /* Main Container - FIXED */
         .main-container {
             position: relative;
             width: 100%;
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 20px 120px;
+            overflow: hidden;
         }
         
-        /* Content Sections - Enhanced with better scrollbar */
+        /* Content Sections - COMPLETELY FIXED FOR SCROLLING */
         .content-section {
             position: absolute;
-            width: 92%;
-            max-width: 950px;
-            max-height: calc(100vh - 160px);
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 900px;
+            height: calc(100vh - 140px);
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(30px);
             border-radius: 30px;
-            padding: 50px 45px;
             box-shadow: 
                 0 25px 80px rgba(0, 0, 0, 0.15),
                 inset 0 1px 0 rgba(255, 255, 255, 0.5),
                 inset 0 -1px 0 rgba(255, 255, 255, 0.2);
             border: 2px solid rgba(255, 255, 255, 0.3);
             opacity: 0;
-            transform: translateY(50px) scale(0.95);
+            visibility: hidden;
             transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            text-align: center;
+            overflow-y: scroll;
+            overflow-x: hidden;
             scrollbar-width: thin;
             scrollbar-color: rgba(255, 255, 255, 0.5) rgba(255, 255, 255, 0.1);
         }
         
         .content-section.active {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            visibility: visible;
         }
         
-        /* Custom Scrollbar - Fixed and Enhanced */
+        /* Content wrapper - CRITICAL FOR SCROLLING */
+        .section-content {
+            padding: 50px 45px;
+            text-align: center;
+            min-height: calc(100% + 100px);
+            padding-bottom: 100px;
+        }
+        
+        /* Custom Scrollbar */
         .content-section::-webkit-scrollbar {
             width: 12px;
         }
@@ -182,26 +185,19 @@
         .content-section::-webkit-scrollbar-track {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            margin: 10px 0;
         }
         
         .content-section::-webkit-scrollbar-thumb {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.6) 100%);
             border-radius: 10px;
             border: 2px solid rgba(255, 255, 255, 0.1);
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
         }
         
         .content-section::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.8) 100%);
-            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.3);
         }
         
-        .content-section::-webkit-scrollbar-corner {
-            background: transparent;
-        }
-        
-        /* Typography - Enhanced */
+        /* Typography */
         .main-title {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
@@ -242,11 +238,7 @@
             text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
         
-        /* Hero Section - Enhanced */
-        .hero-content {
-            text-align: center;
-        }
-        
+        /* Hero Section */
         .birthday-date {
             font-family: 'Playfair Display', serif;
             font-size: 2rem;
@@ -275,7 +267,7 @@
             75% { transform: rotate(-5deg) scale(1.1); }
         }
         
-        /* Enhanced Timeline */
+        /* Timeline */
         .timeline-container {
             position: relative;
             max-width: 750px;
@@ -298,34 +290,12 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
         }
         
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-            z-index: 1;
-        }
-        
-        .timeline-item:hover::before {
-            left: 100%;
-        }
-        
         .timeline-item:hover {
             transform: translateY(-8px) scale(1.03);
             background: rgba(255, 255, 255, 0.3);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
             border-left-color: white;
             border-left-width: 8px;
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-        
-        .timeline-content {
-            position: relative;
-            z-index: 2;
         }
         
         .timeline-date {
@@ -353,90 +323,58 @@
             text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
         }
         
-/* Enhanced Photo Gallery */
-.photo-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
-    margin: 40px 0;
-    padding: 0 20px;
-}
+        /* Photo Gallery */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+            padding: 0 20px;
+        }
 
-.photo-item {
-    position: relative;
-    aspect-ratio: 1;
-    border-radius: 25px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 2px solid rgba(255, 255, 255, 0.25);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-}
+        .photo-item {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 25px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
 
-/* Tambahkan IMG */
-.photo-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-    display: block;
-}
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            display: block;
+        }
 
-/* Overlay teks */
-.photo-placeholder {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-    color: #fff;
-    z-index: 2;
-    text-align: center;
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1.5;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-}
+        .photo-placeholder {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: #fff;
+            z-index: 2;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1rem;
+            line-height: 1.5;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
 
-/* Efek sebelum hover */
-.photo-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-    transition: left 0.7s ease;
-    z-index: 3;
-}
+        .photo-item:hover {
+            transform: scale(1.06) rotate(1.5deg);
+            box-shadow: 0 25px 55px rgba(0,0,0,0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
 
-/* Efek hover */
-.photo-item:hover::before {
-    left: 100%;
-}
-
-.photo-item:hover {
-    transform: scale(1.06) rotate(1.5deg);
-    box-shadow: 0 25px 55px rgba(0,0,0,0.3);
-    border-color: rgba(255, 255, 255, 0.6);
-}
-
-/* Gambar zoom pas hover */
-.photo-item:hover img {
-    transform: scale(1.1);
-}
-
-/* Opsional: animasi ikon 📸 di judul */
-.photo-title::before {
-    content: ' ';
-}
-
-        
-        @keyframes photoFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        .photo-item:hover img {
+            transform: scale(1.1);
         }
         
         .photo-title {
@@ -452,7 +390,7 @@
             opacity: 0.9;
         }
         
-        /* Enhanced Love Message */
+        /* Love Message */
         .love-message {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(20px);
@@ -463,24 +401,6 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
             position: relative;
-            overflow: hidden;
-        }
-        
-        .love-message::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8));
-            background-size: 200% 100%;
-            animation: shimmer 3s ease infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: -200% 50%; }
-            100% { background-position: 200% 50%; }
         }
         
         .love-message p {
@@ -489,8 +409,6 @@
             color: rgba(255, 255, 255, 0.95);
             margin-bottom: 25px;
             line-height: 1.9;
-            position: relative;
-            z-index: 2;
             text-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
         }
         
@@ -501,12 +419,10 @@
             text-align: center;
             margin-top: 35px;
             font-style: italic;
-            position: relative;
-            z-index: 2;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         
-        /* Enhanced Interactive Buttons */
+        /* Interactive Buttons */
         .interactive-btn {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
             backdrop-filter: blur(15px);
@@ -521,24 +437,7 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: 'Inter', sans-serif;
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        .interactive-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.6s ease;
-        }
-        
-        .interactive-btn:hover::before {
-            left: 100%;
         }
         
         .interactive-btn:hover {
@@ -546,10 +445,6 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.3));
             border-color: rgba(255, 255, 255, 0.6);
-        }
-        
-        .interactive-btn:active {
-            transform: translateY(-2px) scale(1.05);
         }
         
         /* Interactive Hearts */
@@ -573,11 +468,7 @@
             }
         }
         
-        /* Thank You Section */
-        .thank-you-content {
-            text-align: center;
-        }
-        
+        /* Big Emoji */
         .big-emoji {
             font-size: 5rem;
             margin: 35px 0;
@@ -609,7 +500,6 @@
             border: 2px solid rgba(255, 255, 255, 0.3);
             font-family: 'Inter', sans-serif;
             animation: notificationSlide 3s ease forwards;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
         
         @keyframes notificationSlide {
@@ -633,29 +523,11 @@
         }
         
         @keyframes particleFloat {
-            0% {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-            100% {
-                opacity: 0;
-                transform: scale(0) translateY(-160px);
-            }
+            0% { opacity: 1; transform: scale(1) translateY(0); }
+            100% { opacity: 0; transform: scale(0) translateY(-160px); }
         }
         
-        /* Responsive Design - Enhanced */
-        @media (max-width: 1024px) {
-            .content-section {
-                width: 95%;
-                padding: 40px 35px;
-            }
-            
-            .photo-gallery {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 20px;
-            }
-        }
-        
+        /* Responsive Design */
         @media (max-width: 768px) {
             .nav-arrow {
                 width: 52px;
@@ -670,9 +542,14 @@
             .section-title { font-size: 2.2rem; }
             
             .content-section {
+                width: 95%;
+                height: calc(100vh - 120px);
+                top: 15px;
+            }
+            
+            .section-content {
                 padding: 35px 30px;
-                max-height: calc(100vh - 140px);
-                width: 96%;
+                padding-bottom: 80px;
             }
             
             .content-section::-webkit-scrollbar {
@@ -685,9 +562,15 @@
                 padding: 0 15px;
             }
             
-            .main-container { padding: 30px 15px 100px; }
-            .timeline-item { padding: 30px 25px; margin: 20px 0; }
-            .page-indicator { bottom: 20px; padding: 12px 20px; }
+            .timeline-item { 
+                padding: 30px 25px; 
+                margin: 20px 0; 
+            }
+            
+            .page-indicator { 
+                bottom: 20px; 
+                padding: 12px 20px; 
+            }
             
             .birthday-date {
                 font-size: 1.7rem;
@@ -705,20 +588,32 @@
             .subtitle { font-size: 1.1rem; }
             
             .content-section { 
-                padding: 30px 25px; 
                 width: 98%;
+                height: calc(100vh - 110px);
+                top: 10px;
+            }
+            
+            .section-content {
+                padding: 30px 25px;
+                padding-bottom: 60px;
             }
             
             .content-section::-webkit-scrollbar {
                 width: 8px;
             }
             
-            .timeline-item { padding: 25px 20px; }
-            .love-message { padding: 35px 30px; }
+            .timeline-item { 
+                padding: 25px 20px; 
+            }
+            
+            .love-message { 
+                padding: 35px 25px; 
+            }
             
             .photo-gallery {
                 grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
                 gap: 15px;
+                padding: 0 10px;
             }
             
             .nav-arrow { 
@@ -746,10 +641,15 @@
         }
         
         @media (max-width: 360px) {
-            .main-container { padding: 25px 10px 90px; }
             .content-section { 
-                padding: 25px 20px;
                 width: 99%;
+                height: calc(100vh - 100px);
+                top: 5px;
+            }
+            
+            .section-content {
+                padding: 25px 20px;
+                padding-bottom: 50px;
             }
             
             .main-title { font-size: 1.9rem; }
@@ -788,14 +688,12 @@
             100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) rotate(5deg); }
         }
         
-        /* Sparkle Effect */
         @keyframes sparkleEffect {
             0% { opacity: 1; transform: scale(0) rotate(0deg); }
             50% { opacity: 1; transform: scale(1.5) rotate(180deg); }
             100% { opacity: 0; transform: scale(0) rotate(360deg); }
         }
         
-        /* Click Ripple Effect */
         @keyframes rippleEffect {
             0% { opacity: 1; transform: translate(-50%, -50%) scale(0); }
             100% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
@@ -821,181 +719,188 @@
         
         <!-- Hero Section -->
         <div class="content-section active" id="hero">
-            <div class="hero-content">
-                <h1 class="main-title">Selamat Ulang Tahun</h1>
-                <h2 class="subtitle">Untuk kekasih tersayang yang selalu membuat hidupku penuh warna dan kebahagiaan</h2>
-                <div class="birthday-date">1 September 2025</div>
-                <div class="hero-emoji">🎂</div>
-                <p style="font-size: 1.15rem; color: rgba(255, 255, 255, 0.9); margin: 25px 0; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">
-                    Hari ini adalah hari yang special. 
-                    Terima kasih telah menjadi cahaya dalam hidupku dan memberikan arti untuk setiap hari yang kita jalani bersama.
-                </p>
-                <button class="interactive-btn" onclick="createHeartExplosion()">
-                    💕
-                </button>
+            <div class="section-content">
+                <div class="hero-content">
+                    <h1 class="main-title">Selamat Ulang Tahun</h1>
+                    <h2 class="subtitle">Untuk kekasih tersayang yang selalu membuat hidupku penuh warna dan kebahagiaan</h2>
+                    <div class="birthday-date">1 September 2025</div>
+                    <div class="hero-emoji">🎂</div>
+                    <p style="font-size: 1.15rem; color: rgba(255, 255, 255, 0.9); margin: 25px 0; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">
+                        Hari ini adalah hari yang special. 
+                        Terima kasih telah menjadi cahaya dalam hidupku dan memberikan arti untuk setiap hari yang kita jalani bersama.
+                    </p>
+                    <button class="interactive-btn" onclick="createHeartExplosion()">
+                        💕
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- Timeline Section -->
         <div class="content-section" id="timeline">
-            <h2 class="section-title">Memorial</h2>
-            <div class="timeline-container">
-                <div class="timeline-item" onclick="animateItem(this)">
-                    <div class="timeline-content">
-                        <div class="timeline-date">Awal Pertemuan</div>
-                        <div class="timeline-text">
-                            Kita dipertemukan pada suatu platform game, yang akupun ga nyangka kamu bisa menjadi kekasihku sekarang. dan kita mengobrol seperti layaknya teman
+            <div class="section-content">
+                <h2 class="section-title">Memorial</h2>
+                <div class="timeline-container">
+                    <div class="timeline-item" onclick="animateItem(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Awal Pertemuan</div>
+                            <div class="timeline-text">
+                                Kita dipertemukan pada suatu platform game, yang akupun ga nyangka kamu bisa menjadi kekasihku sekarang. dan kita mengobrol seperti layaknya teman
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" onclick="animateItem(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">First Call</div>
+                            <div class="timeline-text">
+                                First Call yang canggung tapi cute. Aku pasti nervous, tapi entah mengapa rasanya sudah seperti kenal lama. Dari situ aku tahu, kamu adalah orangnya.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" onclick="animateItem(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Menjadi pasangan</div>
+                            <div class="timeline-text">
+                                Hari dimana kita resmi menjadi sepasang kekasih. Momen yang tidak akan pernah aku lupakan, ketika kamu bilang "Yea, i will" dan membuat hidupku jadi lebih bermakna dari sebelumnya.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" onclick="animateItem(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Momen Spesial</div>
+                            <div class="timeline-text">
+                                Setiap momen bersama kamu pasti selalu spesial. Dari yang sederhana seperti bercanda denganmu, sampai bermain game berjam jam.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item" onclick="animateItem(this)">
+                        <div class="timeline-content">
+                            <div class="timeline-date">Sekarang & Selamanya</div>
+                            <div class="timeline-text">
+                                Dan hari ini, di hari ulang tahunmu yang special, aku bersyukur bisa merayakannya bersamamu. Terima kasih sudah menjadi bagian yang indah dalam hidupku.
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="timeline-item" onclick="animateItem(this)">
-                    <div class="timeline-content">
-                        <div class="timeline-date">First Call</div>
-                        <div class="timeline-text">
-                            First Call yang canggung tapi cute. Aku pasti nervous, tapi entah mengapa rasanya sudah seperti kenal lama. Dari situ aku tahu, kamu adalah orangnya.
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="content-section" id="gallery">
+            <div class="section-content">
+                <h2 class="section-title">Galeri you/we</h2>
+                <div class="photo-gallery">
+                    
+                    <!-- Foto 1 -->
+                    <div class="photo-item" onclick="photoClick(this)">
+                        <img src="nannut3.JPG" alt="My Love Nannut" class="photo-img">
+                        <div class="photo-placeholder">
+                            <div class="photo-title"></div>
+                            <div class="photo-subtitle">My Love Nannut</div>
+                        </div>
+                    </div>
+
+                    <!-- Foto 2 -->
+                    <div class="photo-item" onclick="photoClick(this)">
+                        <img src="pix.JPG" alt="Pixel Nannut" class="photo-img">
+                        <div class="photo-placeholder">
+                            <div class="photo-title"></div>
+                            <div class="photo-subtitle">Pixel Nannut</div>
+                        </div>
+                    </div>
+
+                    <!-- Foto 3 -->
+                    <div class="photo-item" onclick="photoClick(this)">
+                        <img src="nannut.JPG" alt="Hari Jadi" class="photo-img">
+                        <div class="photo-placeholder">
+                            <div class="photo-title"></div>
+                            <div class="photo-subtitle">About Nannut</div>
+                        </div>
+                    </div>
+
+                    <!-- Foto 4 -->
+                    <div class="photo-item" onclick="photoClick(this)">
+                        <img src="withoutglass.JPG" alt="glass" class="photo-img">
+                        <div class="photo-placeholder">
+                            <div class="photo-title"></div>
+                            <div class="photo-subtitle">Nannut without glasses</div>
+                        </div>
+                    </div>
+              
+                    <!-- Foto 5 -->
+                    <div class="photo-item" onclick="photoClick(this)">
+                        <img src="we.JPG" alt="Hari Jadi" class="photo-img">
+                        <div class="photo-placeholder">
+                            <div class="photo-title"></div>
+                            <div class="photo-subtitle">Nannut art</div>
+                        </div>
+                    </div>
+                           
+                    <!-- Foto 6 -->
+                    <div class="photo-item" onclick="photoClick(this)">
+                        <img src="vinnut.jpeg" alt="Hari Jadi" class="photo-img">
+                        <div class="photo-placeholder">
+                            <div class="photo-title"></div>
+                            <div class="photo-subtitle">COWONYA NANNUT</div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="timeline-item" onclick="animateItem(this)">
-                    <div class="timeline-content">
-                        <div class="timeline-date">Menjadi pasangan</div>
-                        <div class="timeline-text">
-                            Hari dimana kita resmi menjadi sepasang kekasih. Momen yang tidak akan pernah aku lupakan, ketika kamu bilang "Yea, i will" dan membuat hidupku jadi lebih bermakna dari sebelumnya.
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" onclick="animateItem(this)">
-                    <div class="timeline-content">
-                        <div class="timeline-date">Momen Spesial</div>
-                        <div class="timeline-text">
-                            Setiap momen bersama kamu pasti selalu spesial. Dari yang sederhana seperti bercanda denganmu, sampai bermain game berjam jam.
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="timeline-item" onclick="animateItem(this)">
-                    <div class="timeline-content">
-                        <div class="timeline-date">Sekarang & Selamanya</div>
-                        <div class="timeline-text">
-                            Dan hari ini, di hari ulang tahunmu yang special, aku bersyukur bisa merayakannya bersamamu. Terima kasih sudah menjadi bagian yang indah dalam hidupku.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-<!-- Gallery Section -->
-<div class="content-section" id="gallery">
-    <h2 class="section-title">Galeri you/we</h2>
-    <div class="photo-gallery">
-        
-        <!-- Foto 1 -->
-        <div class="photo-item" onclick="photoClick(this)">
-            <img src="nannut3.JPG" alt="My Love Nannut" class="photo-img">
-            <div class="photo-placeholder">
-                <div class="photo-title"></div>
-                <div class="photo-subtitle">My Love Nannut</div>
+                <p style="text-align: center; color: rgba(255, 255, 255, 0.9); font-style: italic; margin-top: 30px; font-size: 1.2rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">
+                    I love you just the way you are.
+                </p>
             </div>
         </div>
-
-        <!-- Foto 2 -->
-        <div class="photo-item" onclick="photoClick(this)">
-            <img src="pix.JPG" alt="Pixel Nannut" class="photo-img">
-            <div class="photo-placeholder">
-                <div class="photo-title"></div>
-                <div class="photo-subtitle">Pixel Nannut</div>
-            </div>
-        </div>
-
-        <!-- Foto 3 -->
-        <div class="photo-item" onclick="photoClick(this)">
-            <img src="nannut.JPG" alt="Hari Jadi" class="photo-img">
-            <div class="photo-placeholder">
-                <div class="photo-title"></div>
-                <div class="photo-subtitle">About Nannut</div>
-            </div>
-        </div>
-
-        <!-- Foto 4 -->
-        <div class="photo-item" onclick="photoClick(this)">
-            <img src="withoutglass.JPG" alt="glass" class="photo-img">
-            <div class="photo-placeholder">
-                <div class="photo-title"></div>
-                <div class="photo-subtitle">Nannut without glasses</div>
-            </div>
-        </div>
-  
-        <!-- Foto 5 -->
-        <div class="photo-item" onclick="photoClick(this)">
-            <img src="we.JPG" alt="Hari Jadi" class="photo-img">
-            <div class="photo-placeholder">
-                <div class="photo-title"></div>
-                <div class="photo-subtitle">Nannut art</div>
-            </div>
-        </div>
-               
-        
-                <!-- Foto 6 -->
-        <div class="photo-item" onclick="photoClick(this)">
-            <img src="vinnut.jpeg" alt="Hari Jadi" class="photo-img">
-            <div class="photo-placeholder">
-                <div class="photo-title"></div>
-                <div class="photo-subtitle">COWONYA NANNUT</div>
-            </div>
-        </div>
-        <!-- Tambahkan foto lainnya dengan pola yang sama -->
-    </div>
-
-    <p style="text-align: center; color: rgba(255, 255, 255, 0.9); font-style: italic; margin-top: 30px; font-size: 1.2rem; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">
-        I love you just the way you are.
-    </p>
-</div>
-
 
         <!-- Message Section -->
         <div class="content-section" id="message">
-            <h2 class="section-title">Pesan Khusus Untukmu</h2>
-            <div class="love-message">
-                <p><strong>Love of my life,</strong></p>
-                
-                <p>Di hari yang special ini, aku ingin kamu tahu betapa berartinya kamu dalam hidupku. Kamu bukan hanya sekedar pacar, tapi kamu adalah sahabat terbaik, teman curhat, dan alasan aku tersenyum setiap hari.</p>
-                
-                <p>Setiap detik bersamamu adalah hadiah yang sangat berharga. Caramu tertawa, cara kamu peduli, dan cara kamu mencintai dengan tulus, semua itu membuat hidupku jauh lebih indah dari yang pernah aku bayangkan sebelumnya.</p>
-                
-                <p>Kamu adalah bait terindah dalam puisi kehidupanku, nada paling syahdu dalam lagu hariku. Bersamamu, aku belajar apa arti ketulusan, dan darimu aku tahu bahwa cinta yang tulus benar-benar ada.</p>                
-                
-                <p>Terima kasih sudah menerima aku apa adanya, dengan segala kelebihan dan kekuranganku. Terima kasih sudah sabar menghadapi semua tingkah lakuku. Dan yang paling penting, terima kasih sudah memilih untuk mencintaiku dengan sepenuh hati.</p>
-                
-                <p>Di tahun baru kehidupanmu ini, aku berharap semua impian dan cita-citamu bisa terwujud. Semoga kamu selalu bahagia, sehat, dan diberkahi dalam segala hal. Aku akan selalu ada di sisimu, mendukung dan mencintaimu tanpa syarat.</p>
+            <div class="section-content">
+                <h2 class="section-title">Pesan Khusus Untukmu</h2>
+                <div class="love-message">
+                    <p><strong>Love of my life,</strong></p>
+                    
+                    <p>Di hari yang special ini, aku ingin kamu tahu betapa berartinya kamu dalam hidupku. Kamu bukan hanya sekedar pacar, tapi kamu adalah sahabat terbaik, teman curhat, dan alasan aku tersenyum setiap hari.</p>
+                    
+                    <p>Setiap detik bersamamu adalah hadiah yang sangat berharga. Caramu tertawa, cara kamu peduli, dan cara kamu mencintai dengan tulus, semua itu membuat hidupku jauh lebih indah dari yang pernah aku bayangkan sebelumnya.</p>
+                    
+                    <p>Kamu adalah bait terindah dalam puisi kehidupanku, nada paling syahdu dalam lagu hariku. Bersamamu, aku belajar apa arti ketulusan, dan darimu aku tahu bahwa cinta yang tulus benar-benar ada.</p>                
+                    
+                    <p>Terima kasih sudah menerima aku apa adanya, dengan segala kelebihan dan kekuranganku. Terima kasih sudah sabar menghadapi semua tingkah lakuku. Dan yang paling penting, terima kasih sudah memilih untuk mencintaiku dengan sepenuh hati.</p>
+                    
+                    <p>Di tahun baru kehidupanmu ini, aku berharap semua impian dan cita-citamu bisa terwujud. Semoga kamu selalu bahagia, sehat, dan diberkahi dalam segala hal. Aku akan selalu ada di sisimu, mendukung dan mencintaimu tanpa syarat.</p>
 
-                <div class="signature">my love,<br>Kekasihmu ❤️</div>
-            </div>
-            
-            <div style="text-align: center; margin-top: 40px;">
-                <button class="interactive-btn" onclick="showLoveAnimation()">
-                    💌
-                </button>
+                    <div class="signature">my love,<br>Kekasihmu ❤️</div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 40px;">
+                    <button class="interactive-btn" onclick="showLoveAnimation()">
+                        💌
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- Thank You Section -->
         <div class="content-section" id="thankyou">
-            <div class="thank-you-content">
-                <h2 class="section-title">Terima Kasih</h2>
-                <p style="font-size: 1.3rem; color: rgba(255, 255, 255, 0.95); margin: 25px 0; line-height: 1.8; max-width: 550px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">
-                    Terima kasih sudah menjadi bagian terbaik dari hidupku dan<br>
-                    <strong>Happy birthday, Kekasihku!</strong>
-                </p>
-                <div class="big-emoji">🎂🎉❤️</div>
-                <p style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.9); margin: 35px 0; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">
-                    Semoga hari-hari kita ke depan akan lebih indah dan penuh kebahagiaan lagi 💕
-                </p>
-                <button class="interactive-btn" onclick="finalSurprise()">
-                    🎊
-                </button>
+            <div class="section-content">
+                <div class="thank-you-content">
+                    <h2 class="section-title">Terima Kasih</h2>
+                    <p style="font-size: 1.3rem; color: rgba(255, 255, 255, 0.95); margin: 25px 0; line-height: 1.8; max-width: 550px; margin-left: auto; margin-right: auto; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">
+                        Terima kasih sudah menjadi bagian terbaik dari hidupku dan<br>
+                        <strong>Happy birthday, Kekasihku!</strong>
+                    </p>
+                    <div class="big-emoji">🎂🎉❤️</div>
+                    <p style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.9); margin: 35px 0; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);">
+                        Semoga hari-hari kita ke depan akan lebih indah dan penuh kebahagiaan lagi 💕
+                    </p>
+                    <button class="interactive-btn" onclick="finalSurprise()">
+                        🎊
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1003,7 +908,6 @@
     <!-- Hidden audio element for autoplay -->
     <audio id="backgroundMusic" autoplay loop>
         <source src="sound.mp3" type="audio/mpeg">
-        <!-- Ganti dengan URL lagu favorit kalian atau hapus jika tidak ingin musik -->
     </audio>
 
     <script>
@@ -1013,23 +917,21 @@
         let isTransitioning = false;
         const sections = ['hero', 'timeline', 'gallery', 'message', 'thankyou'];
         
-        // Initialize page and auto-start music
+        // Initialize page
         window.addEventListener('load', () => {
             updateNavigation();
             startParticleSystem();
             initializeMusic();
             
-            // Auto-start some ambient effects
             setTimeout(() => {
                 createFloatingHeart();
             }, 2000);
         });
         
-        // Auto-start music (with user interaction fallback)
+        // Music initialization
         function initializeMusic() {
             const music = document.getElementById('backgroundMusic');
             
-            // Try to autoplay
             const playPromise = music.play();
             
             if (playPromise !== undefined) {
@@ -1037,11 +939,9 @@
                     isPlaying = true;
                     showNotification('I ALWAYS LOVE U NANNUT');
                 }).catch(error => {
-                    // Autoplay was prevented, will start on first user interaction
                     console.log('Autoplay prevented, music will start on first interaction');
                     isPlaying = false;
                     
-                    // Add one-time click listener to start music
                     const startMusicOnClick = () => {
                         music.play().then(() => {
                             isPlaying = true;
@@ -1057,7 +957,7 @@
             }
         }
         
-        // Navigation Functions with smooth animations
+        // Navigation Functions
         function nextSection() {
             if (isTransitioning || currentSectionIndex >= sections.length - 1) return;
             
@@ -1065,22 +965,21 @@
             const currentSection = document.getElementById(sections[currentSectionIndex]);
             const nextSection = document.getElementById(sections[currentSectionIndex + 1]);
             
-            // Smooth transition
-            currentSection.style.transform = 'translateX(-50px) scale(0.95)';
+            currentSection.style.transform = 'translateX(-50%) translateY(-50px)';
             currentSection.style.opacity = '0';
             
             setTimeout(() => {
                 currentSection.classList.remove('active');
-                currentSection.style.transform = '';
+                currentSection.style.transform = 'translateX(-50%)';
                 currentSection.style.opacity = '';
                 
                 currentSectionIndex++;
                 nextSection.classList.add('active');
-                nextSection.style.transform = 'translateX(50px) scale(0.95)';
+                nextSection.style.transform = 'translateX(-50%) translateY(50px)';
                 nextSection.style.opacity = '0';
                 
                 setTimeout(() => {
-                    nextSection.style.transform = '';
+                    nextSection.style.transform = 'translateX(-50%)';
                     nextSection.style.opacity = '';
                     isTransitioning = false;
                 }, 100);
@@ -1097,22 +996,21 @@
             const currentSection = document.getElementById(sections[currentSectionIndex]);
             const prevSection = document.getElementById(sections[currentSectionIndex - 1]);
             
-            // Smooth transition
-            currentSection.style.transform = 'translateX(50px) scale(0.95)';
+            currentSection.style.transform = 'translateX(-50%) translateY(50px)';
             currentSection.style.opacity = '0';
             
             setTimeout(() => {
                 currentSection.classList.remove('active');
-                currentSection.style.transform = '';
+                currentSection.style.transform = 'translateX(-50%)';
                 currentSection.style.opacity = '';
                 
                 currentSectionIndex--;
                 prevSection.classList.add('active');
-                prevSection.style.transform = 'translateX(-50px) scale(0.95)';
+                prevSection.style.transform = 'translateX(-50%) translateY(-50px)';
                 prevSection.style.opacity = '0';
                 
                 setTimeout(() => {
-                    prevSection.style.transform = '';
+                    prevSection.style.transform = 'translateX(-50%)';
                     prevSection.style.opacity = '';
                     isTransitioning = false;
                 }, 100);
@@ -1130,22 +1028,21 @@
             const targetSection = document.getElementById(sections[index]);
             const direction = index > currentSectionIndex ? 50 : -50;
             
-            // Smooth transition
-            currentSection.style.transform = `translateX(${-direction}px) scale(0.95)`;
+            currentSection.style.transform = `translateX(-50%) translateY(${-direction}px)`;
             currentSection.style.opacity = '0';
             
             setTimeout(() => {
                 currentSection.classList.remove('active');
-                currentSection.style.transform = '';
+                currentSection.style.transform = 'translateX(-50%)';
                 currentSection.style.opacity = '';
                 
                 currentSectionIndex = index;
                 targetSection.classList.add('active');
-                targetSection.style.transform = `translateX(${direction}px) scale(0.95)`;
+                targetSection.style.transform = `translateX(-50%) translateY(${direction}px)`;
                 targetSection.style.opacity = '0';
                 
                 setTimeout(() => {
-                    targetSection.style.transform = '';
+                    targetSection.style.transform = 'translateX(-50%)';
                     targetSection.style.opacity = '';
                     isTransitioning = false;
                 }, 100);
@@ -1156,12 +1053,10 @@
         }
         
         function updateNavigation() {
-            // Update page indicator
             document.querySelectorAll('.indicator-dot').forEach((dot, index) => {
                 dot.classList.toggle('active', index === currentSectionIndex);
             });
             
-            // Update navigation arrows
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             
@@ -1169,18 +1064,16 @@
             nextBtn.classList.toggle('disabled', currentSectionIndex === sections.length - 1);
         }
         
-        // Interactive Functions - Fixed button functionality
+        // Interactive Functions
         function createHeartExplosion() {
             const button = event.target;
             const rect = button.getBoundingClientRect();
             const centerX = rect.left + rect.width / 2;
             const centerY = rect.top + rect.height / 2;
             
-            // Button feedback
             button.style.transform = 'scale(1.15)';
             button.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.4))';
             
-            // Create heart explosion
             for (let i = 0; i < 30; i++) {
                 setTimeout(() => {
                     const angle = (i / 30) * Math.PI * 2;
@@ -1220,14 +1113,12 @@
             if (item.dataset.animating === 'true') return;
             item.dataset.animating = 'true';
             
-            // Enhanced animation
             item.style.transform = 'translateY(-10px) scale(1.05)';
             item.style.background = 'rgba(255, 255, 255, 0.35)';
             item.style.boxShadow = '0 30px 60px rgba(0, 0, 0, 0.25)';
             item.style.borderLeftColor = 'white';
             item.style.borderLeftWidth = '8px';
             
-            // Create hearts around the item
             const rect = item.getBoundingClientRect();
             for (let i = 0; i < 12; i++) {
                 setTimeout(() => {
@@ -1251,13 +1142,11 @@
             if (photo.dataset.animating === 'true') return;
             photo.dataset.animating = 'true';
             
-            // Enhanced photo animation
             photo.style.transform = 'scale(1.15) rotate(5deg)';
             photo.style.zIndex = '100';
             photo.style.boxShadow = '0 35px 70px rgba(0, 0, 0, 0.4)';
             photo.style.background = 'rgba(255, 255, 255, 0.4)';
             
-            // Create sparkles
             const rect = photo.getBoundingClientRect();
             for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
@@ -1296,7 +1185,6 @@
         function showLoveAnimation() {
             const button = event.target;
             
-            // Button feedback
             button.style.transform = 'scale(1.12)';
             button.style.background = 'linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.3))';
             
@@ -1339,17 +1227,14 @@
         function finalSurprise() {
             const button = event.target;
             
-            // Button feedback
             button.style.transform = 'scale(1.12)';
             button.style.background = 'linear-gradient(135deg, rgba(46, 204, 113, 0.4), rgba(39, 174, 96, 0.4))';
             button.disabled = true;
             
-            // Multiple confetti bursts
             createConfettiExplosion();
             setTimeout(() => createConfettiExplosion(), 1200);
             setTimeout(() => createConfettiExplosion(), 2400);
             
-            // Show surprise message
             setTimeout(() => {
                 const surpriseMessage = document.createElement('div');
                 surpriseMessage.style.position = 'fixed';
@@ -1368,7 +1253,6 @@
                 surpriseMessage.style.fontFamily = 'Playfair Display, serif';
                 surpriseMessage.style.boxShadow = '0 40px 100px rgba(0, 0, 0, 0.4)';
                 surpriseMessage.style.border = '3px solid rgba(255, 255, 255, 0.4)';
-                surpriseMessage.style.textShadow = '0 3px 12px rgba(0, 0, 0, 0.4)';
                 surpriseMessage.innerHTML = `
                     <div style="font-size: 4.5rem; margin-bottom: 30px; animation: emojiCelebration 3s ease infinite;">🎊</div>
                     <div style="font-size: 2.2rem; margin-bottom: 25px;"><strong>🤍</strong></div>
@@ -1380,7 +1264,6 @@
                 
                 document.body.appendChild(surpriseMessage);
                 
-                // Continuous hearts
                 const heartInterval = setInterval(() => {
                     for (let i = 0; i < 4; i++) {
                         createInteractiveHeart(
@@ -1464,7 +1347,6 @@
             setTimeout(() => notification.remove(), 3000);
         }
         
-        // Particle System
         function startParticleSystem() {
             setInterval(() => {
                 if (Math.random() > 0.75) {
@@ -1517,11 +1399,10 @@
             document.body.appendChild(ripple);
             setTimeout(() => ripple.remove(), 1000);
             
-            // Add small sparkle
             createSparkle(x + (Math.random() - 0.5) * 20, y + (Math.random() - 0.5) * 20);
         }
         
-        // Keyboard shortcuts for navigation
+        // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === ' ') {
                 e.preventDefault();
@@ -1535,7 +1416,7 @@
             }
         });
         
-        // Touch/swipe support for mobile
+        // Touch/swipe support
         let touchStartX = 0;
         let touchEndX = 0;
         
@@ -1554,24 +1435,14 @@
             
             if (Math.abs(swipeDistance) > swipeThreshold) {
                 if (swipeDistance > 0) {
-                    previousSection(); // Swipe right = previous
+                    previousSection();
                 } else {
-                    nextSection(); // Swipe left = next
+                    nextSection();
                 }
             }
         }
         
-        // Enhanced hover effects for interactive elements
-        document.querySelectorAll('.interactive-btn').forEach(btn => {
-            btn.addEventListener('mouseenter', () => {
-                createSparkle(
-                    btn.getBoundingClientRect().left + Math.random() * btn.offsetWidth,
-                    btn.getBoundingClientRect().top + Math.random() * btn.offsetHeight
-                );
-            });
-        });
-        
-        // Auto-create ambient effects periodically
+        // Auto-create ambient effects
         setInterval(() => {
             if (Math.random() > 0.8) {
                 createFloatingHeart();
@@ -1582,29 +1453,6 @@
         setTimeout(() => {
             showNotification('🎂 HAPPY BIRTHDAY WIFEYY! 🎂');
         }, 1500);
-        
-        // Console message
-        console.log(`
-        💖 Enhanced Birthday Website! 💖
-        
-        Recent Improvements:
-        ✨ Removed music player - auto-start background music
-        ✨ Fixed custom scrollbar for all devices
-        ✨ Enhanced rsesponsive design for all screen sizes
-        ✨ Better mobile optimization
-        ✨ Improved accessibility and performance
-        ✨ Cleaner UI without music controls
-        
-        Controls:
-        → Arrow Right / Space: Next section
-        ← Arrow Left: Previous section
-        1-5: Jump to specific section
-        Swipe left/right on mobile
-        Click anywhere for ripple effects
-        
-        Music will auto-start or begin on first user interaction
-        Made with 💕 and modern web technologies
-        `);
     </script>
 </body>
 </html>
