@@ -1402,45 +1402,17 @@
             createSparkle(x + (Math.random() - 0.5) * 20, y + (Math.random() - 0.5) * 20);
         }
         
-        // Keyboard shortcuts
+        // Keyboard shortcuts - DISABLED SCROLL NAVIGATION
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                nextSection();
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                previousSection();
-            } else if (e.key >= '1' && e.key <= '5') {
+            // Hanya untuk tombol angka, hapus arrow keys dan space
+            if (e.key >= '1' && e.key <= '5') {
                 e.preventDefault();
                 goToSection(parseInt(e.key) - 1);
             }
         });
         
-        // Touch/swipe support
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        document.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-        
-        document.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-        
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const swipeDistance = touchEndX - touchStartX;
-            
-            if (Math.abs(swipeDistance) > swipeThreshold) {
-                if (swipeDistance > 0) {
-                    previousSection();
-                } else {
-                    nextSection();
-                }
-            }
-        }
+        // Touch/swipe support - DISABLED
+        // Fitur swipe untuk pindah halaman telah dihapus
         
         // Auto-create ambient effects
         setInterval(() => {
